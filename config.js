@@ -6,6 +6,10 @@ const CONFIG = {
     palettes: COLOR_PALETTES,
     organism: {
         numSegments: 21,
+        movement: {
+            maxSpeed: 2,
+            repulsionForce: 2.0
+        },
         breathing: {
             base: 0.85,
             amplitude1: 0.25,

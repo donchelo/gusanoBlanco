@@ -11,11 +11,13 @@ function draw() {
     // background(0, 25);
     drawBackground();
     
+    push();
     translate(width / 2, height / 2);
     tGlobal += 0.008;
     
     organism.update();
     organism.draw();
+    pop();
 }
 
 function drawBackground() {

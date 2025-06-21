@@ -20,7 +20,20 @@ class Segment {
         }
     }
     
+    follow(target) {
+        let dir = p5.Vector.sub(target, this.position);
+        let d = dir.mag();
+        // The distance between segments. Let's use a fraction of the segment's size.
+        let spacing = this.size * 0.5; 
+        if (d > spacing) {
+            dir.setMag(d - spacing);
+            this.position.add(dir);
+        }
+    }
+    
     update(spineProgress, globalBreathing) {
+        // The wave calculation is no longer needed for positioning
+        /*
         const wave = CONFIG.segment.wave;
         let n1 = noise(tGlobal * wave.freq1 + spineProgress * wave.phase1);
         let n2 = noise(tGlobal * wave.freq2 + spineProgress * wave.phase2 + 100);
@@ -33,7 +46,8 @@ class Segment {
         const pos = CONFIG.segment.position;
         this.position.x = wave1 + wave2 + wave3;
         this.position.y = spineProgress * pos.y_factor - pos.y_offset;
-        
+        */
+
         const rot = CONFIG.segment.rotation;
         let rot_noise = noise(tGlobal * rot.freq + spineProgress * rot.phase + 500);
         this.angle = map(rot_noise, 0, 1, -rot.amp, rot.amp);
