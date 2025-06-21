@@ -2,6 +2,100 @@ const phi = 1.618;
 
 const CONFIG = {
     phi: phi,
+    currentPaletteIndex: 0,
+    palettes: [{
+        background: [5, 10, 20],
+        spine: {
+            color: [200, 220, 255, 150],
+            glowColor: [100, 150, 255, 60],
+        },
+        segment: {
+            color_start: [0, 180, 220],
+            color_end: [200, 100, 255],
+            stroke_alpha: 220,
+            glow_alpha: 40,
+        },
+        limb: {
+            color_start: [180, 255, 200],
+            color_end: [100, 220, 255],
+        },
+        filament: {
+            color: [220, 255, 255, 80],
+            end_point_color: [255, 255, 255, 120],
+        },
+        atmosphere: {
+            color: [150, 200, 255, 30],
+        }
+    }, {
+        background: [20, 5, 5],
+        spine: {
+            color: [255, 200, 180, 150],
+            glowColor: [255, 150, 100, 60],
+        },
+        segment: {
+            color_start: [255, 60, 0],
+            color_end: [255, 200, 50],
+            stroke_alpha: 220,
+            glow_alpha: 50,
+        },
+        limb: {
+            color_start: [255, 180, 150],
+            color_end: [255, 255, 180],
+        },
+        filament: {
+            color: [255, 255, 220, 90],
+            end_point_color: [255, 255, 255, 130],
+        },
+        atmosphere: {
+            color: [255, 150, 100, 30],
+        }
+    }, {
+        background: [10, 20, 15],
+        spine: {
+            color: [180, 255, 200, 150],
+            glowColor: [80, 200, 150, 60],
+        },
+        segment: {
+            color_start: [30, 180, 150],
+            color_end: [150, 255, 100],
+            stroke_alpha: 220,
+            glow_alpha: 40,
+        },
+        limb: {
+            color_start: [150, 220, 100],
+            color_end: [200, 255, 180],
+        },
+        filament: {
+            color: [220, 255, 220, 80],
+            end_point_color: [255, 255, 255, 120],
+        },
+        atmosphere: {
+            color: [100, 200, 150, 30],
+        }
+    }, {
+        background: [25, 0, 25],
+        spine: {
+            color: [255, 0, 255, 150],
+            glowColor: [0, 255, 255, 60],
+        },
+        segment: {
+            color_start: [255, 255, 0],
+            color_end: [0, 255, 0],
+            stroke_alpha: 220,
+            glow_alpha: 60,
+        },
+        limb: {
+            color_start: [255, 0, 0],
+            color_end: [0, 0, 255],
+        },
+        filament: {
+            color: [255, 255, 255, 100],
+            end_point_color: [255, 255, 255, 150],
+        },
+        atmosphere: {
+            color: [255, 100, 255, 40],
+        }
+    }],
     organism: {
         numSegments: 21,
         breathing: {
@@ -18,16 +112,16 @@ const CONFIG = {
             glowStrokeWeight: 8,
         },
         atmosphere: {
-            particleCount: 15,
-            x_freq: 0.5,
-            x_amp: 200,
-            x_rand: 50,
-            y_freq: 0.3,
-            y_phase_factor: 0.7,
-            y_amp: 150,
-            y_rand: 30,
-            size_rand_min: 1,
-            size_rand_max: 3,
+            particleCount: 30,
+            x_freq: 0.2,
+            x_amp: 250,
+            x_rand: 0,
+            y_freq: 0.1,
+            y_phase_factor: 1.5,
+            y_amp: 200,
+            y_rand: 0,
+            size_rand_min: 0.5,
+            size_rand_max: 2.5,
             color: [255, 255, 255, 30],
         }
     },
@@ -42,34 +136,34 @@ const CONFIG = {
             max: 1.2,
         },
         wave: {
-            amp1: 35,
-            freq1: 1.0,
-            phase1: 2,
-            amp2: 22,
-            freq2: 1.0 / phi,
-            phase2: 1.5,
-            amp3: 14,
-            freq3: phi,
-            phase3: 3,
+            amp1: 40,
+            freq1: 0.6,
+            phase1: 5,
+            amp2: 25,
+            freq2: 0.4,
+            phase2: 8,
+            amp3: 15,
+            freq3: 0.9,
+            phase3: 12,
         },
         position: {
             y_factor: 400,
             y_offset: 200,
         },
         rotation: {
-            freq: 1,
-            phase: 2,
-            amp: 0.15,
+            freq: 0.3,
+            phase: 4,
+            amp: 0.2,
         },
         drawing: {
             fillColor: [255, 255, 255, 180],
             strokeColor: [255, 255, 255, 220],
             strokeWeight: 2,
-            size_y_factor: 0.7,
+            size_y_factor: 1,
             glow: {
                 fillColor: [255, 255, 255, 40],
-                x_factor: 2,
-                y_factor: 1.4,
+                x_factor: 1.8,
+                y_factor: 1.8,
             }
         }
     },

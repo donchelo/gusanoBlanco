@@ -32,9 +32,9 @@ class Organism {
     }
     
     drawSpinalConnections() {
-        const spinal = CONFIG.organism.spinal;
+        const spinal = CONFIG.palettes[CONFIG.currentPaletteIndex].spine;
         stroke(...spinal.color);
-        strokeWeight(spinal.strokeWeight);
+        strokeWeight(CONFIG.organism.spinal.strokeWeight);
         noFill();
         
         beginShape();
@@ -44,7 +44,7 @@ class Organism {
         endShape();
         
         stroke(...spinal.glowColor);
-        strokeWeight(spinal.glowStrokeWeight);
+        strokeWeight(CONFIG.organism.spinal.glowStrokeWeight);
         beginShape();
         for (let segment of this.segments) {
             curveVertex(segment.position.x, segment.position.y);
@@ -54,12 +54,25 @@ class Organism {
     
     drawAtmosphericEffects() {
         const atmos = CONFIG.organism.atmosphere;
-        fill(...atmos.color);
+        const atmos_color = CONFIG.palettes[CONFIG.currentPaletteIndex].atmosphere.color;
+        
         noStroke();
         for (let i = 0; i < atmos.particleCount; i++) {
-            let x = sin(tGlobal * atmos.x_freq + i) * atmos.x_amp + random(-atmos.x_rand, atmos.x_rand);
-            let y = cos(tGlobal * atmos.y_freq + i * atmos.y_phase_factor) * atmos.y_amp + random(-atmos.y_rand, atmos.y_rand);
-            circle(x, y, random(atmos.size_rand_min, atmos.size_rand_max));
+            // using noise for more organic movement
+            let noiseX = noise(tGlobal * atmos.x_freq + i * 10);
+            let noiseY = noise(tGlobal * atmos.y_freq + i * 10 + 100);
+
+            let x = map(noiseX, 0, 1, -atmos.x_amp, atmos.x_amp);
+            let y = map(noiseY, 0, 1, -atmos.y_amp, atmos.y_amp);
+            
+            let size = random(atmos.size_rand_min, atmos.size_rand_max);
+            // make particles blink
+            let alphaNoise = noise(tGlobal * 0.5 + i * 20);
+            let c = color(...atmos_color);
+            c.setAlpha(map(alphaNoise, 0, 1, 10, 80));
+            fill(c);
+
+            circle(x, y, size);
         }
     }
 }

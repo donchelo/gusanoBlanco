@@ -76,15 +76,22 @@ class Limb {
 
             let thickness = map(i, 0, this.joints.length - 1, drawConfig.thickness_map_start, drawConfig.thickness_map_end);
 
-            stroke(255, 255, 255, drawConfig.color_base - i * drawConfig.color_factor);
+            let progress = i / (this.joints.length - 1);
+            let baseColor = lerpColor(color(...CONFIG.palettes[CONFIG.currentPaletteIndex].limb.color_start), color(...CONFIG.palettes[CONFIG.currentPaletteIndex].limb.color_end), progress);
+
+            let mainColor = color(baseColor);
+            mainColor.setAlpha(drawConfig.color_base - i * drawConfig.color_factor);
+            stroke(mainColor);
             strokeWeight(thickness);
             line(currentPos.x, currentPos.y, nextPos.x, nextPos.y);
 
-            stroke(255, 255, 255, drawConfig.glow_color_base - i * drawConfig.glow_color_factor);
+            let glowColor = color(baseColor);
+            glowColor.setAlpha(drawConfig.glow_color_base - i * drawConfig.glow_color_factor);
+            stroke(glowColor);
             strokeWeight(thickness + 2);
             line(currentPos.x, currentPos.y, nextPos.x, nextPos.y);
 
-            this.drawFilaments(nextPos, dynamicAngle, joint.filaments, i);
+            this.drawFilaments(nextPos, dynamicAngle, joint.filaments, i, baseColor);
 
             currentPos = nextPos;
             cumulativeAngle = dynamicAngle;
@@ -93,8 +100,10 @@ class Limb {
         pop();
     }
 
-    drawFilaments(position, baseAngle, filaments, jointIndex) {
+    drawFilaments(position, baseAngle, filaments, jointIndex, baseLimbColor) {
         const filConfig = CONFIG.limb.filaments.draw;
+        const pal = CONFIG.palettes[CONFIG.currentPaletteIndex].filament;
+
         for (let filament of filaments) {
             let filAngle = baseAngle + filament.angle +
                           sin(tGlobal * filConfig.wave_freq + filament.phase + this.segmentIndex) * filConfig.wave_amp;
@@ -103,11 +112,13 @@ class Limb {
             let endX = position.x + cos(filAngle) * filLength;
             let endY = position.y + sin(filAngle) * filLength;
 
-            stroke(255, 255, 255, filConfig.color_base - jointIndex * filConfig.color_factor);
+            let filColor = lerpColor(color(baseLimbColor), color(...pal.color), 0.5);
+            filColor.setAlpha(filConfig.color_base - jointIndex * filConfig.color_factor);
+            stroke(filColor);
             strokeWeight(filament.weight);
             line(position.x, position.y, endX, endY);
 
-            fill(...filConfig.end_point_color);
+            fill(...pal.end_point_color);
             noStroke();
             circle(endX, endY, filConfig.end_point_size);
         }

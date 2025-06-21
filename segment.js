@@ -22,16 +22,21 @@ class Segment {
     
     update(spineProgress, globalBreathing) {
         const wave = CONFIG.segment.wave;
-        let wave1 = sin(tGlobal * wave.freq1 + spineProgress * TWO_PI * wave.phase1) * wave.amp1;
-        let wave2 = cos(tGlobal * wave.freq2 + spineProgress * TWO_PI * wave.phase2) * wave.amp2;
-        let wave3 = sin(tGlobal * wave.freq3 + spineProgress * TWO_PI * wave.phase3) * wave.amp3;
+        let n1 = noise(tGlobal * wave.freq1 + spineProgress * wave.phase1);
+        let n2 = noise(tGlobal * wave.freq2 + spineProgress * wave.phase2 + 100);
+        let n3 = noise(tGlobal * wave.freq3 + spineProgress * wave.phase3 + 200);
+        
+        let wave1 = map(n1, 0, 1, -wave.amp1, wave.amp1);
+        let wave2 = map(n2, 0, 1, -wave.amp2, wave.amp2);
+        let wave3 = map(n3, 0, 1, -wave.amp3, wave.amp3);
         
         const pos = CONFIG.segment.position;
         this.position.x = wave1 + wave2 + wave3;
         this.position.y = spineProgress * pos.y_factor - pos.y_offset;
         
         const rot = CONFIG.segment.rotation;
-        this.angle = sin(tGlobal * rot.freq + spineProgress * PI * rot.phase) * rot.amp;
+        let rot_noise = noise(tGlobal * rot.freq + spineProgress * rot.phase + 500);
+        this.angle = map(rot_noise, 0, 1, -rot.amp, rot.amp);
         
         this.currentSize = this.size * globalBreathing * this.breathing;
         
@@ -45,14 +50,25 @@ class Segment {
         translate(this.position.x, this.position.y);
         rotate(this.angle);
         
+        const pal = CONFIG.palettes[CONFIG.currentPaletteIndex].segment;
         const drawConfig = CONFIG.segment.drawing;
-        fill(...drawConfig.fillColor);
-        stroke(...drawConfig.strokeColor);
+        let baseColor = lerpColor(color(...pal.color_start), color(...pal.color_end), this.progress);
+
+        let fillColor = color(baseColor);
+        fillColor.setAlpha(180);
+        let strokeColor = color(baseColor);
+        strokeColor.setAlpha(pal.stroke_alpha);
+
+        fill(fillColor);
+        stroke(strokeColor);
         strokeWeight(drawConfig.strokeWeight);
         ellipse(0, 0, this.currentSize, this.currentSize * drawConfig.size_y_factor);
         
+        // Glow effect
         const glow = drawConfig.glow;
-        fill(...glow.fillColor);
+        let glowColor = color(baseColor);
+        glowColor.setAlpha(pal.glow_alpha);
+        fill(glowColor);
         noStroke();
         ellipse(0, 0, this.currentSize * glow.x_factor, this.currentSize * glow.y_factor);
         
