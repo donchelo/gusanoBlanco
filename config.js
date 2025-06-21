@@ -42,6 +42,7 @@ const CONFIG = {
             min: 10,
             max: 60,
             distribution_factor: phi,
+            noise_freq: 7,
         },
         breathing: {
             min: 0.8,

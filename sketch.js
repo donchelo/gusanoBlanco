@@ -1,9 +1,10 @@
 let tGlobal = 0;
-let organism;
+let creatures = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    organism = new Organism();
+    creatures.push(new BigWorm());
+    creatures.push(new SmallWorm());
 }
 
 function draw() {
@@ -15,8 +16,10 @@ function draw() {
     translate(width / 2, height / 2);
     tGlobal += 0.008;
     
-    organism.update();
-    organism.draw();
+    for (let creature of creatures) {
+        creature.update(creatures);
+        creature.draw();
+    }
     pop();
 }
 

@@ -1,9 +1,24 @@
 class Segment {
-    constructor(index, totalSegments) {
+    constructor(index, totalSegments, sizeMultiplier = 1, bodyShapeSeed = 0) {
         this.index = index;
         this.progress = index / (totalSegments - 1);
+        
         const sizeConfig = CONFIG.segment.size;
-        this.size = map(sin(pow(this.progress, sizeConfig.distribution_factor) * PI), 0, 1, sizeConfig.min, sizeConfig.max);
+        
+        // Symmetrical base shape using the golden ratio distribution
+        let symmetricalFactor = sin(pow(this.progress, sizeConfig.distribution_factor) * PI);
+        
+        // Organic variation using Perlin noise, seeded for each creature
+        let noiseFactor = noise(bodyShapeSeed + this.progress * sizeConfig.noise_freq);
+        
+        // Combine them to get an organic, but still structured, shape.
+        // We give more weight to the symmetrical factor to maintain a recognizable body form
+        // while adding noise for natural-looking "lumps".
+        let combinedFactor = symmetricalFactor * 0.6 + noiseFactor * 0.4;
+        
+        this.size = map(combinedFactor, 0, 1, sizeConfig.min, sizeConfig.max);
+        this.size *= sizeMultiplier; // Apply global size multiplier for Big/Small worms
+        
         this.position = createVector(0, 0);
         this.angle = 0;
         this.limbs = [];
