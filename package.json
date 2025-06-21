@@ -1,0 +1,32 @@
+{
+  "name": "gusano-blanco",
+  "version": "1.0.0",
+  "description": "Proyecto de animación y simulación de criaturas usando p5.js",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 8000",
+    "dev": "python -m http.server 8000",
+    "build": "echo 'No build process needed for p5.js project'",
+    "test": "echo 'No tests specified'"
+  },
+  "keywords": [
+    "p5.js",
+    "animation",
+    "creatures",
+    "simulation",
+    "javascript",
+    "creative-coding"
+  ],
+  "author": "Tu Nombre",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tu-usuario/gusano-blanco.git"
+  },
+  "bugs": {
+    "url": "https://github.com/tu-usuario/gusano-blanco/issues"
+  },
+  "homepage": "https://github.com/tu-usuario/gusano-blanco#readme"
+} 

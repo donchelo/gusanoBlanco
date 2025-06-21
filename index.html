@@ -3,27 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>p5.js Sketch</title>
-    <style>
-        html, body {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-        }
-        canvas {
-            display: block;
-        }
-    </style>
+    <title>Gusano Blanco - p5.js Project</title>
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.min.js"></script>
 </head>
 <body>
-    <script src="palettes.js"></script>
-    <script src="config.js"></script>
-    <script src="segment.js"></script>
-    <script src="limb.js"></script>
-    <script src="creatures/creature.js"></script>
-    <script src="creatures/big_worm.js"></script>
-    <script src="creatures/small_worm.js"></script>
-    <script src="sketch.js"></script>
+    <!-- Controles de interfaz -->
+    <div class="controls">
+        <button id="toggleDebug">Debug</button>
+        <button id="reset">Reset</button>
+    </div>
+    
+    <!-- Información de debug -->
+    <div class="debug-info" id="debugInfo" style="display: none;">
+        <div>FPS: <span id="fps">0</span></div>
+        <div>Criaturas: <span id="creatureCount">0</span></div>
+    </div>
+
+    <!-- Scripts en orden de dependencia -->
+    <!-- Utilidades y configuración -->
+    <script src="js/utils/palettes.js"></script>
+    <script src="js/config/config.js"></script>
+    
+    <!-- Componentes base -->
+    <script src="js/components/segment.js"></script>
+    <script src="js/components/limb.js"></script>
+    
+    <!-- Sistema de criaturas -->
+    <script src="js/creatures/base/creature.js"></script>
+    <script src="js/creatures/worms/big_worm.js"></script>
+    <script src="js/creatures/worms/small_worm.js"></script>
+    <script src="js/creatures/index.js"></script>
+    
+    <!-- Archivo principal -->
+    <script src="js/main.js"></script>
 </body>
 </html>
