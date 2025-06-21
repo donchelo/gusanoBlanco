@@ -203,7 +203,7 @@ const COLOR_PALETTES = [
             end_point_color: [255, 255, 255, 185],
         },
         atmosphere: {
-            color: [40, 100, 90, 28],
+            color: [40, 80, 100, 28],
         }
     },
     
@@ -226,36 +226,88 @@ const COLOR_PALETTES = [
         },
         filament: {
             color: [255, 255, 255, 140],
-            end_point_color: [255, 255, 255, 200],
+            end_point_color: [255, 255, 255, 210],
         },
         atmosphere: {
-            color: [150, 80, 100, 35],
+            color: [100, 50, 150, 35],
         }
     },
     
-    // Paleta 10: Dorado-Azul Marino (Lujo vs Elegancia)
+    // Paleta 10: Rayos X (Blanco y Negro con Toques Cian)
+    {
+        background: [0, 0, 0],
+        spine: {
+            color: [255, 255, 255, 200],
+            glowColor: [180, 220, 255, 100],
+        },
+        segment: {
+            color_start: [240, 240, 240],
+            color_end: [150, 200, 220],
+            stroke_alpha: 255,
+            glow_alpha: 90,
+        },
+        limb: {
+            color_start: [255, 255, 255],
+            color_end: [200, 230, 255],
+        },
+        filament: {
+            color: [220, 240, 255, 150],
+            end_point_color: [255, 255, 255, 220],
+        },
+        atmosphere: {
+            color: [5, 10, 15, 20],
+        }
+    },
+    
+    // Paleta 11: Infrarrojo (Cálido a Frío)
+    {
+        background: [0, 0, 5],
+        spine: {
+            color: [255, 50, 0, 160],
+            glowColor: [0, 150, 255, 90],
+        },
+        segment: {
+            color_start: [220, 40, 0],
+            color_end: [0, 100, 200],
+            stroke_alpha: 250,
+            glow_alpha: 80,
+        },
+        limb: {
+            color_start: [255, 80, 40],
+            color_end: [50, 150, 255],
+        },
+        filament: {
+            color: [255, 240, 230, 130],
+            end_point_color: [255, 255, 255, 190],
+        },
+        atmosphere: {
+            color: [80, 40, 20, 30],
+        }
+    },
+    
+    // Paleta 12: Dorado-Azul Marino (Lujo vs Elegancia)
     {
         background: [0, 5, 15],
         spine: {
-            color: [255, 200, 0, 150],
-            glowColor: [0, 50, 150, 85],
+            color: [255, 215, 0, 150],
+            glowColor: [0, 50, 100, 85],
         },
         segment: {
-            color_start: [200, 150, 0],
-            color_end: [0, 30, 100],
+            color_start: [200, 160, 0],
+            color_end: [0, 30, 80],
             stroke_alpha: 245,
-            glow_alpha: 68,
+            glow_alpha: 70,
         },
         limb: {
-            color_start: [255, 220, 50],
-            color_end: [50, 80, 180],
+            color_start: [255, 235, 50],
+            color_end: [50, 80, 150],
         },
         filament: {
-            color: [255, 250, 230, 125],
+            color: [255, 250, 220, 125],
             end_point_color: [255, 255, 255, 185],
         },
         atmosphere: {
-            color: [80, 60, 100, 28],
+            color: [100, 80, 20, 28],
         }
     }
 ];
